@@ -1,6 +1,13 @@
+<!-- Copyright (c) 2023 Kosuke Suzuki -->
+<!-- The above copyright notation has been added to clarify that 
+     this file was modified from the original owner's version. -->
+
 <!-- mcl.launch -->
 <launch >
     <!-- ROS parameters -->
+
+    <!-- Logs -->
+    <arg name="output" default="log" />
 
     <!-- Node name -->
     <arg name="node_name" default="mcl" />
@@ -239,7 +246,7 @@
 
 
     <!-- MCL node -->
-    <node name="$(arg node_name)" pkg="als_ros" type="mcl" output="screen" >
+    <node name="$(arg node_name)" pkg="als_ros" type="mcl" output="$(arg output)" >
         <param name="measurement_model_type" value="$(arg measurement_model_type)" type="int" />
 
         <param name="scan_name" value="$(arg scan_name)" type="string" />
