@@ -1,6 +1,7 @@
 /****************************************************************************
  * als_ros: An Advanced Localization System for ROS use with 2D LiDAR
  * Copyright (C) 2022 Naoki Akai
+ * Copyright (C) 2023 Kosuke Suzuki
  *
  * Licensed under the Apache License, Version 2.0 (the “License”);
  * you may not use this file except in compliance with the License.
@@ -1151,14 +1152,14 @@ public:
             // add transform_tolerance: send a transform that is good up until a tolerance time so that odom can be used
             ros::Time transformExpiration = (mclPoseStamp_ + ros::Duration(transformTolerance_));
             geometry_msgs::TransformStamped map2odomStampedTrans;
-            map2odomStampedTrans.header.stamp = transformExpiration;
+            map2odomStampedTrans.header.stamp = ros::Time::now(); // transformExpiration;
             map2odomStampedTrans.header.frame_id = mapFrame_;
             map2odomStampedTrans.child_frame_id = odomFrame_;
             tf2::convert(map2odomTrans, map2odomStampedTrans.transform);
             tfBroadcaster_.sendTransform(map2odomStampedTrans);
         } else {
             geometry_msgs::TransformStamped map2baseStampedTrans;
-            map2baseStampedTrans.header.stamp = mclPoseStamp_;
+            map2baseStampedTrans.header.stamp = ros::Time::now(); // mclPoseStamp_;
             map2baseStampedTrans.header.frame_id = mapFrame_;
             map2baseStampedTrans.child_frame_id = baseLinkFrame_;
             tf2::convert(map2baseTrans, map2baseStampedTrans.transform);
